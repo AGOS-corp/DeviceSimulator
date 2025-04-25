@@ -146,6 +146,10 @@
             this.TB_Tcp_IP = new System.Windows.Forms.TextBox();
             this.Btn_SaveSetting_TCP = new System.Windows.Forms.Button();
             this.groupBox29 = new System.Windows.Forms.GroupBox();
+            this.groupBox26 = new System.Windows.Forms.GroupBox();
+            this.TB_Radar2_Port = new System.Windows.Forms.TextBox();
+            this.Btn_Radar2_Connect = new System.Windows.Forms.Button();
+            this.label56 = new System.Windows.Forms.Label();
             this.FMS_GB = new System.Windows.Forms.GroupBox();
             this.Btn_Radar1_Connect = new System.Windows.Forms.Button();
             this.TB_Radar1_Port = new System.Windows.Forms.TextBox();
@@ -155,15 +159,15 @@
             this.label39 = new System.Windows.Forms.Label();
             this.Jammer_GB = new System.Windows.Forms.GroupBox();
             this.groupBox13 = new System.Windows.Forms.GroupBox();
-            this.comboBox2 = new System.Windows.Forms.ComboBox();
-            this.textBox3 = new System.Windows.Forms.TextBox();
+            this.CB_PanTilt2_Type = new System.Windows.Forms.ComboBox();
+            this.TB_PanTilt2_Port = new System.Windows.Forms.TextBox();
             this.label60 = new System.Windows.Forms.Label();
-            this.button3 = new System.Windows.Forms.Button();
+            this.Btn_PanTilt2_Connect = new System.Windows.Forms.Button();
             this.groupBox7 = new System.Windows.Forms.GroupBox();
-            this.comboBox1 = new System.Windows.Forms.ComboBox();
-            this.textBox2 = new System.Windows.Forms.TextBox();
+            this.CB_PanTilt1_Type = new System.Windows.Forms.ComboBox();
+            this.TB_PanTilt1_Port = new System.Windows.Forms.TextBox();
             this.label40 = new System.Windows.Forms.Label();
-            this.button2 = new System.Windows.Forms.Button();
+            this.Btn_PanTilt1_Connect = new System.Windows.Forms.Button();
             this.groupBox23 = new System.Windows.Forms.GroupBox();
             this.CB_Jammer2_Type = new System.Windows.Forms.ComboBox();
             this.Btn_Jammer2_Connect = new System.Windows.Forms.Button();
@@ -205,10 +209,6 @@
             this.Btn_ADSB_Connect = new System.Windows.Forms.Button();
             this.TB_ADSB_IP = new System.Windows.Forms.TextBox();
             this.label52 = new System.Windows.Forms.Label();
-            this.groupBox26 = new System.Windows.Forms.GroupBox();
-            this.label56 = new System.Windows.Forms.Label();
-            this.Btn_Radar2_Connect = new System.Windows.Forms.Button();
-            this.TB_Radar2_Port = new System.Windows.Forms.TextBox();
             this.TAB_SepPage.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.groupBox9.SuspendLayout();
@@ -227,6 +227,7 @@
             this.groupBox16.SuspendLayout();
             this.groupBox3.SuspendLayout();
             this.groupBox29.SuspendLayout();
+            this.groupBox26.SuspendLayout();
             this.FMS_GB.SuspendLayout();
             this.Jammer_GB.SuspendLayout();
             this.groupBox13.SuspendLayout();
@@ -242,7 +243,6 @@
             this.AisAdsb_GB.SuspendLayout();
             this.groupBox20.SuspendLayout();
             this.groupBox21.SuspendLayout();
-            this.groupBox26.SuspendLayout();
             this.SuspendLayout();
             // 
             // TAB_SepPage
@@ -340,6 +340,7 @@
             this.CB_Timeout_UDP.Name = "CB_Timeout_UDP";
             this.CB_Timeout_UDP.Size = new System.Drawing.Size(64, 23);
             this.CB_Timeout_UDP.TabIndex = 24;
+            this.CB_Timeout_UDP.SelectedIndexChanged += new System.EventHandler(this.CB_Timeout_UDP_SelectedIndexChanged);
             // 
             // TB_Udp_IP
             // 
@@ -421,9 +422,9 @@
             // CB_Drone3_Scenario
             // 
             this.CB_Drone3_Scenario.FormattingEnabled = true;
-            this.CB_Drone3_Scenario.Location = new System.Drawing.Point(97, 20);
+            this.CB_Drone3_Scenario.Location = new System.Drawing.Point(40, 20);
             this.CB_Drone3_Scenario.Name = "CB_Drone3_Scenario";
-            this.CB_Drone3_Scenario.Size = new System.Drawing.Size(54, 23);
+            this.CB_Drone3_Scenario.Size = new System.Drawing.Size(111, 23);
             this.CB_Drone3_Scenario.TabIndex = 19;
             this.CB_Drone3_Scenario.SelectedIndexChanged += new System.EventHandler(this.CB_Drone3_Scenario_SelectedIndexChanged);
             // 
@@ -467,9 +468,9 @@
             this.label36.Font = new System.Drawing.Font("굴림", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
             this.label36.Location = new System.Drawing.Point(6, 27);
             this.label36.Name = "label36";
-            this.label36.Size = new System.Drawing.Size(89, 13);
+            this.label36.Size = new System.Drawing.Size(33, 13);
             this.label36.TabIndex = 5;
-            this.label36.Text = "비행 시나리오";
+            this.label36.Text = "비행";
             // 
             // label37
             // 
@@ -524,16 +525,16 @@
             // 
             this.TB_Drone3_Alt.Location = new System.Drawing.Point(48, 81);
             this.TB_Drone3_Alt.Name = "TB_Drone3_Alt";
-            this.TB_Drone3_Alt.Size = new System.Drawing.Size(103, 25);
+            this.TB_Drone3_Alt.Size = new System.Drawing.Size(59, 25);
             this.TB_Drone3_Alt.TabIndex = 17;
             this.TB_Drone3_Alt.Text = "100";
             // 
             // CB_Drone3_Vel
             // 
             this.CB_Drone3_Vel.FormattingEnabled = true;
-            this.CB_Drone3_Vel.Location = new System.Drawing.Point(203, 84);
+            this.CB_Drone3_Vel.Location = new System.Drawing.Point(163, 84);
             this.CB_Drone3_Vel.Name = "CB_Drone3_Vel";
-            this.CB_Drone3_Vel.Size = new System.Drawing.Size(58, 23);
+            this.CB_Drone3_Vel.Size = new System.Drawing.Size(98, 23);
             this.CB_Drone3_Vel.TabIndex = 19;
             this.CB_Drone3_Vel.SelectedIndexChanged += new System.EventHandler(this.CB_Drone3_Vel_SelectedIndexChanged);
             // 
@@ -565,7 +566,7 @@
             // label43
             // 
             this.label43.AutoSize = true;
-            this.label43.Location = new System.Drawing.Point(159, 89);
+            this.label43.Location = new System.Drawing.Point(122, 89);
             this.label43.Name = "label43";
             this.label43.Size = new System.Drawing.Size(37, 15);
             this.label43.TabIndex = 5;
@@ -678,9 +679,9 @@
             // CB_Drone2_Scenario
             // 
             this.CB_Drone2_Scenario.FormattingEnabled = true;
-            this.CB_Drone2_Scenario.Location = new System.Drawing.Point(97, 20);
+            this.CB_Drone2_Scenario.Location = new System.Drawing.Point(40, 20);
             this.CB_Drone2_Scenario.Name = "CB_Drone2_Scenario";
-            this.CB_Drone2_Scenario.Size = new System.Drawing.Size(54, 23);
+            this.CB_Drone2_Scenario.Size = new System.Drawing.Size(111, 23);
             this.CB_Drone2_Scenario.TabIndex = 19;
             this.CB_Drone2_Scenario.SelectedIndexChanged += new System.EventHandler(this.CB_Drone2_Scenario_SelectedIndexChanged);
             // 
@@ -724,9 +725,9 @@
             this.label5.Font = new System.Drawing.Font("굴림", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
             this.label5.Location = new System.Drawing.Point(6, 27);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(89, 13);
+            this.label5.Size = new System.Drawing.Size(33, 13);
             this.label5.TabIndex = 5;
-            this.label5.Text = "비행 시나리오";
+            this.label5.Text = "비행";
             // 
             // label6
             // 
@@ -781,16 +782,16 @@
             // 
             this.TB_Drone2_Alt.Location = new System.Drawing.Point(48, 81);
             this.TB_Drone2_Alt.Name = "TB_Drone2_Alt";
-            this.TB_Drone2_Alt.Size = new System.Drawing.Size(103, 25);
+            this.TB_Drone2_Alt.Size = new System.Drawing.Size(59, 25);
             this.TB_Drone2_Alt.TabIndex = 17;
             this.TB_Drone2_Alt.Text = "152";
             // 
             // CB_Drone2_Vel
             // 
             this.CB_Drone2_Vel.FormattingEnabled = true;
-            this.CB_Drone2_Vel.Location = new System.Drawing.Point(203, 84);
+            this.CB_Drone2_Vel.Location = new System.Drawing.Point(163, 84);
             this.CB_Drone2_Vel.Name = "CB_Drone2_Vel";
-            this.CB_Drone2_Vel.Size = new System.Drawing.Size(58, 23);
+            this.CB_Drone2_Vel.Size = new System.Drawing.Size(98, 23);
             this.CB_Drone2_Vel.TabIndex = 19;
             this.CB_Drone2_Vel.SelectedIndexChanged += new System.EventHandler(this.CB_Drone2_Vel_SelectedIndexChanged);
             // 
@@ -822,7 +823,7 @@
             // label14
             // 
             this.label14.AutoSize = true;
-            this.label14.Location = new System.Drawing.Point(159, 89);
+            this.label14.Location = new System.Drawing.Point(122, 89);
             this.label14.Name = "label14";
             this.label14.Size = new System.Drawing.Size(37, 15);
             this.label14.TabIndex = 5;
@@ -878,6 +879,7 @@
             this.groupBox22.Controls.Add(this.textBox1);
             this.groupBox22.Controls.Add(this.label57);
             this.groupBox22.Controls.Add(this.button1);
+            this.groupBox22.Enabled = false;
             this.groupBox22.Location = new System.Drawing.Point(8, 61);
             this.groupBox22.Name = "groupBox22";
             this.groupBox22.Size = new System.Drawing.Size(291, 55);
@@ -916,6 +918,7 @@
             this.groupBox12.Controls.Add(this.TB_SPSheild_Port);
             this.groupBox12.Controls.Add(this.label13);
             this.groupBox12.Controls.Add(this.Btn_Connect_SPSheild);
+            this.groupBox12.Enabled = false;
             this.groupBox12.Location = new System.Drawing.Point(8, 6);
             this.groupBox12.Name = "groupBox12";
             this.groupBox12.Size = new System.Drawing.Size(291, 55);
@@ -1011,9 +1014,9 @@
             // CB_Drone1_Scenario
             // 
             this.CB_Drone1_Scenario.FormattingEnabled = true;
-            this.CB_Drone1_Scenario.Location = new System.Drawing.Point(97, 20);
+            this.CB_Drone1_Scenario.Location = new System.Drawing.Point(40, 20);
             this.CB_Drone1_Scenario.Name = "CB_Drone1_Scenario";
-            this.CB_Drone1_Scenario.Size = new System.Drawing.Size(54, 23);
+            this.CB_Drone1_Scenario.Size = new System.Drawing.Size(111, 23);
             this.CB_Drone1_Scenario.TabIndex = 19;
             this.CB_Drone1_Scenario.SelectedIndexChanged += new System.EventHandler(this.CB_Drone1_Scenario_SelectedIndexChanged);
             // 
@@ -1057,9 +1060,9 @@
             this.label27.Font = new System.Drawing.Font("굴림", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
             this.label27.Location = new System.Drawing.Point(6, 27);
             this.label27.Name = "label27";
-            this.label27.Size = new System.Drawing.Size(89, 13);
+            this.label27.Size = new System.Drawing.Size(33, 13);
             this.label27.TabIndex = 5;
-            this.label27.Text = "비행 시나리오";
+            this.label27.Text = "비행";
             // 
             // label29
             // 
@@ -1114,16 +1117,16 @@
             // 
             this.TB_Drone1_Alt.Location = new System.Drawing.Point(48, 81);
             this.TB_Drone1_Alt.Name = "TB_Drone1_Alt";
-            this.TB_Drone1_Alt.Size = new System.Drawing.Size(103, 25);
+            this.TB_Drone1_Alt.Size = new System.Drawing.Size(59, 25);
             this.TB_Drone1_Alt.TabIndex = 17;
             this.TB_Drone1_Alt.Text = "200";
             // 
             // CB_Drone1_Vel
             // 
             this.CB_Drone1_Vel.FormattingEnabled = true;
-            this.CB_Drone1_Vel.Location = new System.Drawing.Point(203, 84);
+            this.CB_Drone1_Vel.Location = new System.Drawing.Point(163, 84);
             this.CB_Drone1_Vel.Name = "CB_Drone1_Vel";
-            this.CB_Drone1_Vel.Size = new System.Drawing.Size(58, 23);
+            this.CB_Drone1_Vel.Size = new System.Drawing.Size(98, 23);
             this.CB_Drone1_Vel.TabIndex = 19;
             this.CB_Drone1_Vel.SelectedIndexChanged += new System.EventHandler(this.CB_Drone1_Vel_SelectedIndexChanged);
             // 
@@ -1155,7 +1158,7 @@
             // label31
             // 
             this.label31.AutoSize = true;
-            this.label31.Location = new System.Drawing.Point(159, 89);
+            this.label31.Location = new System.Drawing.Point(122, 89);
             this.label31.Name = "label31";
             this.label31.Size = new System.Drawing.Size(37, 15);
             this.label31.TabIndex = 5;
@@ -1423,6 +1426,44 @@
             this.groupBox29.TabIndex = 23;
             this.groupBox29.TabStop = false;
             // 
+            // groupBox26
+            // 
+            this.groupBox26.Controls.Add(this.TB_Radar2_Port);
+            this.groupBox26.Controls.Add(this.Btn_Radar2_Connect);
+            this.groupBox26.Controls.Add(this.label56);
+            this.groupBox26.Location = new System.Drawing.Point(7, 120);
+            this.groupBox26.Name = "groupBox26";
+            this.groupBox26.Size = new System.Drawing.Size(290, 45);
+            this.groupBox26.TabIndex = 2;
+            this.groupBox26.TabStop = false;
+            // 
+            // TB_Radar2_Port
+            // 
+            this.TB_Radar2_Port.Location = new System.Drawing.Point(130, 15);
+            this.TB_Radar2_Port.Name = "TB_Radar2_Port";
+            this.TB_Radar2_Port.Size = new System.Drawing.Size(55, 25);
+            this.TB_Radar2_Port.TabIndex = 0;
+            this.TB_Radar2_Port.Text = "20004";
+            // 
+            // Btn_Radar2_Connect
+            // 
+            this.Btn_Radar2_Connect.Location = new System.Drawing.Point(203, 8);
+            this.Btn_Radar2_Connect.Name = "Btn_Radar2_Connect";
+            this.Btn_Radar2_Connect.Size = new System.Drawing.Size(75, 38);
+            this.Btn_Radar2_Connect.TabIndex = 4;
+            this.Btn_Radar2_Connect.Text = "Connect";
+            this.Btn_Radar2_Connect.UseVisualStyleBackColor = true;
+            this.Btn_Radar2_Connect.Click += new System.EventHandler(this.Btn_Radar2_Connect_Click);
+            // 
+            // label56
+            // 
+            this.label56.AutoSize = true;
+            this.label56.Location = new System.Drawing.Point(7, 19);
+            this.label56.Name = "label56";
+            this.label56.Size = new System.Drawing.Size(99, 15);
+            this.label56.TabIndex = 1;
+            this.label56.Text = "RFCore Radar";
+            // 
             // FMS_GB
             // 
             this.FMS_GB.Controls.Add(this.Btn_Radar1_Connect);
@@ -1463,6 +1504,7 @@
             this.Btn_Track1_Close.TabIndex = 22;
             this.Btn_Track1_Close.Text = "/1/trajectories Close";
             this.Btn_Track1_Close.UseVisualStyleBackColor = true;
+            this.Btn_Track1_Close.Click += new System.EventHandler(this.Btn_Track1_Close_Click);
             // 
             // label48
             // 
@@ -1481,6 +1523,7 @@
             this.Btn_Source_Close.TabIndex = 22;
             this.Btn_Source_Close.Text = "/source Close";
             this.Btn_Source_Close.UseVisualStyleBackColor = true;
+            this.Btn_Source_Close.Click += new System.EventHandler(this.Btn_Source_Close_Click);
             // 
             // label39
             // 
@@ -1506,31 +1549,31 @@
             // 
             // groupBox13
             // 
-            this.groupBox13.Controls.Add(this.comboBox2);
-            this.groupBox13.Controls.Add(this.textBox3);
+            this.groupBox13.Controls.Add(this.CB_PanTilt2_Type);
+            this.groupBox13.Controls.Add(this.TB_PanTilt2_Port);
             this.groupBox13.Controls.Add(this.label60);
-            this.groupBox13.Controls.Add(this.button3);
+            this.groupBox13.Controls.Add(this.Btn_PanTilt2_Connect);
             this.groupBox13.Location = new System.Drawing.Point(8, 138);
             this.groupBox13.Name = "groupBox13";
             this.groupBox13.Size = new System.Drawing.Size(334, 45);
             this.groupBox13.TabIndex = 16;
             this.groupBox13.TabStop = false;
             // 
-            // comboBox2
+            // CB_PanTilt2_Type
             // 
-            this.comboBox2.FormattingEnabled = true;
-            this.comboBox2.Location = new System.Drawing.Point(182, 13);
-            this.comboBox2.Name = "comboBox2";
-            this.comboBox2.Size = new System.Drawing.Size(50, 23);
-            this.comboBox2.TabIndex = 15;
+            this.CB_PanTilt2_Type.FormattingEnabled = true;
+            this.CB_PanTilt2_Type.Location = new System.Drawing.Point(182, 13);
+            this.CB_PanTilt2_Type.Name = "CB_PanTilt2_Type";
+            this.CB_PanTilt2_Type.Size = new System.Drawing.Size(56, 23);
+            this.CB_PanTilt2_Type.TabIndex = 15;
             // 
-            // textBox3
+            // TB_PanTilt2_Port
             // 
-            this.textBox3.Location = new System.Drawing.Point(117, 13);
-            this.textBox3.Name = "textBox3";
-            this.textBox3.Size = new System.Drawing.Size(55, 25);
-            this.textBox3.TabIndex = 0;
-            this.textBox3.Text = "20009";
+            this.TB_PanTilt2_Port.Location = new System.Drawing.Point(114, 13);
+            this.TB_PanTilt2_Port.Name = "TB_PanTilt2_Port";
+            this.TB_PanTilt2_Port.Size = new System.Drawing.Size(55, 25);
+            this.TB_PanTilt2_Port.TabIndex = 0;
+            this.TB_PanTilt2_Port.Text = "20013";
             // 
             // label60
             // 
@@ -1541,42 +1584,43 @@
             this.label60.TabIndex = 1;
             this.label60.Text = "PanTilt 2 Port";
             // 
-            // button3
+            // Btn_PanTilt2_Connect
             // 
-            this.button3.Location = new System.Drawing.Point(247, 8);
-            this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(75, 38);
-            this.button3.TabIndex = 4;
-            this.button3.Text = "Connect";
-            this.button3.UseVisualStyleBackColor = true;
+            this.Btn_PanTilt2_Connect.Location = new System.Drawing.Point(247, 8);
+            this.Btn_PanTilt2_Connect.Name = "Btn_PanTilt2_Connect";
+            this.Btn_PanTilt2_Connect.Size = new System.Drawing.Size(75, 38);
+            this.Btn_PanTilt2_Connect.TabIndex = 4;
+            this.Btn_PanTilt2_Connect.Text = "Connect";
+            this.Btn_PanTilt2_Connect.UseVisualStyleBackColor = true;
+            this.Btn_PanTilt2_Connect.Click += new System.EventHandler(this.Btn_PanTilt2_Connect_Click);
             // 
             // groupBox7
             // 
-            this.groupBox7.Controls.Add(this.comboBox1);
-            this.groupBox7.Controls.Add(this.textBox2);
+            this.groupBox7.Controls.Add(this.CB_PanTilt1_Type);
+            this.groupBox7.Controls.Add(this.TB_PanTilt1_Port);
             this.groupBox7.Controls.Add(this.label40);
-            this.groupBox7.Controls.Add(this.button2);
+            this.groupBox7.Controls.Add(this.Btn_PanTilt1_Connect);
             this.groupBox7.Location = new System.Drawing.Point(8, 94);
             this.groupBox7.Name = "groupBox7";
             this.groupBox7.Size = new System.Drawing.Size(334, 45);
             this.groupBox7.TabIndex = 16;
             this.groupBox7.TabStop = false;
             // 
-            // comboBox1
+            // CB_PanTilt1_Type
             // 
-            this.comboBox1.FormattingEnabled = true;
-            this.comboBox1.Location = new System.Drawing.Point(182, 13);
-            this.comboBox1.Name = "comboBox1";
-            this.comboBox1.Size = new System.Drawing.Size(50, 23);
-            this.comboBox1.TabIndex = 15;
+            this.CB_PanTilt1_Type.FormattingEnabled = true;
+            this.CB_PanTilt1_Type.Location = new System.Drawing.Point(182, 13);
+            this.CB_PanTilt1_Type.Name = "CB_PanTilt1_Type";
+            this.CB_PanTilt1_Type.Size = new System.Drawing.Size(56, 23);
+            this.CB_PanTilt1_Type.TabIndex = 15;
             // 
-            // textBox2
+            // TB_PanTilt1_Port
             // 
-            this.textBox2.Location = new System.Drawing.Point(117, 13);
-            this.textBox2.Name = "textBox2";
-            this.textBox2.Size = new System.Drawing.Size(55, 25);
-            this.textBox2.TabIndex = 0;
-            this.textBox2.Text = "20009";
+            this.TB_PanTilt1_Port.Location = new System.Drawing.Point(114, 13);
+            this.TB_PanTilt1_Port.Name = "TB_PanTilt1_Port";
+            this.TB_PanTilt1_Port.Size = new System.Drawing.Size(55, 25);
+            this.TB_PanTilt1_Port.TabIndex = 0;
+            this.TB_PanTilt1_Port.Text = "20012";
             // 
             // label40
             // 
@@ -1587,14 +1631,15 @@
             this.label40.TabIndex = 1;
             this.label40.Text = "PanTilt 1 Port";
             // 
-            // button2
+            // Btn_PanTilt1_Connect
             // 
-            this.button2.Location = new System.Drawing.Point(247, 7);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(75, 38);
-            this.button2.TabIndex = 4;
-            this.button2.Text = "Connect";
-            this.button2.UseVisualStyleBackColor = true;
+            this.Btn_PanTilt1_Connect.Location = new System.Drawing.Point(247, 7);
+            this.Btn_PanTilt1_Connect.Name = "Btn_PanTilt1_Connect";
+            this.Btn_PanTilt1_Connect.Size = new System.Drawing.Size(75, 38);
+            this.Btn_PanTilt1_Connect.TabIndex = 4;
+            this.Btn_PanTilt1_Connect.Text = "Connect";
+            this.Btn_PanTilt1_Connect.UseVisualStyleBackColor = true;
+            this.Btn_PanTilt1_Connect.Click += new System.EventHandler(this.Btn_PanTilt1_Connect_Click);
             // 
             // groupBox23
             // 
@@ -1713,7 +1758,7 @@
             // 
             // TB_Light1_Port
             // 
-            this.TB_Light1_Port.Location = new System.Drawing.Point(119, 13);
+            this.TB_Light1_Port.Location = new System.Drawing.Point(119, 15);
             this.TB_Light1_Port.Name = "TB_Light1_Port";
             this.TB_Light1_Port.Size = new System.Drawing.Size(55, 25);
             this.TB_Light1_Port.TabIndex = 0;
@@ -1761,7 +1806,7 @@
             // 
             // TB_Light2_Port
             // 
-            this.TB_Light2_Port.Location = new System.Drawing.Point(119, 13);
+            this.TB_Light2_Port.Location = new System.Drawing.Point(119, 15);
             this.TB_Light2_Port.Name = "TB_Light2_Port";
             this.TB_Light2_Port.Size = new System.Drawing.Size(55, 25);
             this.TB_Light2_Port.TabIndex = 0;
@@ -1986,52 +2031,17 @@
             this.label52.TabIndex = 1;
             this.label52.Text = "ADSB";
             // 
-            // groupBox26
-            // 
-            this.groupBox26.Controls.Add(this.TB_Radar2_Port);
-            this.groupBox26.Controls.Add(this.Btn_Radar2_Connect);
-            this.groupBox26.Controls.Add(this.label56);
-            this.groupBox26.Location = new System.Drawing.Point(7, 120);
-            this.groupBox26.Name = "groupBox26";
-            this.groupBox26.Size = new System.Drawing.Size(290, 45);
-            this.groupBox26.TabIndex = 2;
-            this.groupBox26.TabStop = false;
-            // 
-            // label56
-            // 
-            this.label56.AutoSize = true;
-            this.label56.Location = new System.Drawing.Point(7, 19);
-            this.label56.Name = "label56";
-            this.label56.Size = new System.Drawing.Size(99, 15);
-            this.label56.TabIndex = 1;
-            this.label56.Text = "RFCore Radar";
-            // 
-            // Btn_Radar2_Connect
-            // 
-            this.Btn_Radar2_Connect.Location = new System.Drawing.Point(203, 8);
-            this.Btn_Radar2_Connect.Name = "Btn_Radar2_Connect";
-            this.Btn_Radar2_Connect.Size = new System.Drawing.Size(75, 38);
-            this.Btn_Radar2_Connect.TabIndex = 4;
-            this.Btn_Radar2_Connect.Text = "Connect";
-            this.Btn_Radar2_Connect.UseVisualStyleBackColor = true;
-            this.Btn_Radar2_Connect.Click += new System.EventHandler(this.Btn_Radar2_Connect_Click);
-            // 
-            // TB_Radar2_Port
-            // 
-            this.TB_Radar2_Port.Location = new System.Drawing.Point(130, 15);
-            this.TB_Radar2_Port.Name = "TB_Radar2_Port";
-            this.TB_Radar2_Port.Size = new System.Drawing.Size(55, 25);
-            this.TB_Radar2_Port.TabIndex = 0;
-            this.TB_Radar2_Port.Text = "20004";
-            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(627, 741);
             this.Controls.Add(this.TAB_SepPage);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+            this.MaximizeBox = false;
             this.Name = "Form1";
             this.Text = "Form1";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Form1_FormClosing);
             this.TAB_SepPage.ResumeLayout(false);
             this.tabPage1.ResumeLayout(false);
             this.groupBox9.ResumeLayout(false);
@@ -2064,6 +2074,8 @@
             this.groupBox3.ResumeLayout(false);
             this.groupBox3.PerformLayout();
             this.groupBox29.ResumeLayout(false);
+            this.groupBox26.ResumeLayout(false);
+            this.groupBox26.PerformLayout();
             this.FMS_GB.ResumeLayout(false);
             this.FMS_GB.PerformLayout();
             this.Jammer_GB.ResumeLayout(false);
@@ -2090,8 +2102,6 @@
             this.groupBox20.PerformLayout();
             this.groupBox21.ResumeLayout(false);
             this.groupBox21.PerformLayout();
-            this.groupBox26.ResumeLayout(false);
-            this.groupBox26.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -2266,15 +2276,15 @@
         private System.Windows.Forms.Label label57;
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.GroupBox groupBox7;
-        private System.Windows.Forms.ComboBox comboBox1;
-        private System.Windows.Forms.TextBox textBox2;
+        private System.Windows.Forms.ComboBox CB_PanTilt1_Type;
+        private System.Windows.Forms.TextBox TB_PanTilt1_Port;
         private System.Windows.Forms.Label label40;
-        private System.Windows.Forms.Button button2;
+        private System.Windows.Forms.Button Btn_PanTilt1_Connect;
         private System.Windows.Forms.GroupBox groupBox13;
-        private System.Windows.Forms.ComboBox comboBox2;
-        private System.Windows.Forms.TextBox textBox3;
+        private System.Windows.Forms.ComboBox CB_PanTilt2_Type;
+        private System.Windows.Forms.TextBox TB_PanTilt2_Port;
         private System.Windows.Forms.Label label60;
-        private System.Windows.Forms.Button button3;
+        private System.Windows.Forms.Button Btn_PanTilt2_Connect;
         private System.Windows.Forms.GroupBox groupBox26;
         private System.Windows.Forms.TextBox TB_Radar2_Port;
         private System.Windows.Forms.Button Btn_Radar2_Connect;

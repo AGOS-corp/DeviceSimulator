@@ -88,15 +88,17 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="control_addon\AdsbSend.cs" />
-    <Compile Include="ControlMethodLibrary.cs" />
+    <Compile Include="MethodLibrary\ControlMethodLibrary.cs" />
     <Compile Include="control_addon\AisSend.cs" />
     <Compile Include="control_addon\FMSSend.cs" />
+    <Compile Include="control_addon\PanTiltSend.cs" />
     <Compile Include="control_addon\RadarSend.cs" />
     <Compile Include="control_addon\SpooferSend.cs" />
     <Compile Include="util\BinaryReader.cs" />
     <Compile Include="util\TcpServer.cs" />
+    <Compile Include="util\UdpServer.cs" />
     <Compile Include="util\WebSocketServer.cs" />
-    <Compile Include="DroneSimulationSend.cs" />
+    <Compile Include="scanner_addon\DroneSimulationSend.cs" />
     <Compile Include="Form1.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -105,7 +107,7 @@
     </Compile>
     <Compile Include="control_addon\JammerSend.cs" />
     <Compile Include="control_addon\LightSend.cs" />
-    <Compile Include="ScannerMethodLibrary.cs" />
+    <Compile Include="MethodLibrary\ScannerMethodLibrary.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="Form1.resx">

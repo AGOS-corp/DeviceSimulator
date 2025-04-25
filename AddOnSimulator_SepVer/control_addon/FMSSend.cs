@@ -47,7 +47,7 @@ namespace AddOnSimulator_SepVer
 
         public void DisConnect()
         {
-            server.CloseTCPServer();
+            server?.CloseTCPServer();
             ShowLog("Closed");
         }
 
@@ -65,7 +65,7 @@ namespace AddOnSimulator_SepVer
             }
 
             if (receiveData[10] == receiveCMD)
-                SendFMSState();
+                await SendFMSState();
 
             else if (receiveData[10] == 0x31)
             {
@@ -74,7 +74,7 @@ namespace AddOnSimulator_SepVer
                 else
                     Task.Run(() => SetReset(receiveData[13]));
 
-                SendFMSState();
+                await SendFMSState();
             }
 
             else if (type == 2)
@@ -84,7 +84,7 @@ namespace AddOnSimulator_SepVer
                 else
                     Task.Run(() => SetReset(receiveData[10]));
 
-                SendFMSState();
+                await SendFMSState();
             }
         }
 
@@ -163,7 +163,7 @@ namespace AddOnSimulator_SepVer
         }
 
 
-        private void SendFMSState()
+        private async Task SendFMSState()
         {
             byte[] sendData;
 
@@ -207,7 +207,7 @@ namespace AddOnSimulator_SepVer
             Buffer.BlockCopy(sendData, 0, packet, 0, sendData.Length);
             BitConverter.GetBytes(gencrc_CCITT16(IgnoreHeader(packet))).CopyTo(packet, sendData.Length); //CRC 처리
 
-            server.SendData(packet);
+            await server.SendData(packet);
 
             DataSendEvent?.Invoke("FMS - 상태값 응답");
         }

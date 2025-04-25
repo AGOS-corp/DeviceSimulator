@@ -126,14 +126,16 @@ namespace AddOnSimulator_SepVer.util
             client?.Dispose();
         }
 
-        public async void SendData(byte[] data)
+        public async Task<bool> SendData(byte[] data)
         {
             try
             {
                 if (IsConnectClient())
                 {
                     await stream.WriteAsync(data, 0, data.Length);
+                    return true;
                 }
+                return false;
             }
             catch (Exception ex)
             {
@@ -143,6 +145,7 @@ namespace AddOnSimulator_SepVer.util
                     ReturnTCPProperty();
                     await Task.Run(() => RunServer());
                 }
+                return false;
             }
         }
 

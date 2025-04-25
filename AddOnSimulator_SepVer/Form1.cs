@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Threading;
+using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace AddOnSimulator_SepVer
@@ -27,7 +28,9 @@ namespace AddOnSimulator_SepVer
             FMSSend.DataSendEvent += AppendControlLog;
             JammerSend.DataSendEvent += AppendControlLog;
             AisSend.DataSendEvent += AppendControlLog;
+            AdsbSend.DataSendEvent += AppendControlLog;
             RadarSend.DataSendEvent += AppendControlLog;
+            PanTiltSend.DataSendEvent += AppendControlLog;
 
             DroneSimulationSend.DataSendEvent += AppendScannerLog;
         }
@@ -90,7 +93,6 @@ namespace AddOnSimulator_SepVer
         // 메시지 전송 주기 설정 버튼 클릭 이벤트
         private void Btn_SetTimeOut_Click(object sender, EventArgs e)
         {
-            DroneSimulationSend.timeOut = int.Parse(CB_Timeout_UDP.Text);
             ScannerMethodLibrary.SaveConfigData(this);
         }
 
@@ -264,14 +266,60 @@ namespace AddOnSimulator_SepVer
             ControlMethodLibrary.PrepareFMSSimul(this);
         }
 
+
+        private void Btn_PanTilt1_Connect_Click(object sender, EventArgs e)
+        {
+            ControlMethodLibrary.PreparePanTiltSimul(this, 1);
+        }
+        private void Btn_PanTilt2_Connect_Click(object sender, EventArgs e)
+        {
+            ControlMethodLibrary.PreparePanTiltSimul(this, 2);
+        }
+
+
         private void CB_Timeout_TCP_SelectedIndexChanged(object sender, EventArgs e)
         {
             ControlMethodLibrary.ChangeTimeout(this);
         }
 
+
+
+        private void Btn_Source_Close_Click(object sender, EventArgs e)
+        {
+            ControlMethodLibrary.ChangeEndPoint(this, 1);
+        }
+        private void Btn_Track1_Close_Click(object sender, EventArgs e)
+        {
+            ControlMethodLibrary.ChangeEndPoint(this, 2);
+        }
+
+
+
         private void Btn_Clear_TCP_Click(object sender, EventArgs e)
         {
             RTB_Control_Log.Clear();
+        }
+
+
+
+
+
+        private void ShutDownLogic()
+        {
+            // 모든 시뮬레이터 종료
+            // ScannerMethodLibrary.ShutDownLogic(this);
+            ControlMethodLibrary.ShutDownLogic(this);
+        }
+
+        private void Form1_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            ShutDownLogic();
+            Task.Delay(100).Wait();
+        }
+
+        private void CB_Timeout_UDP_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            ScannerMethodLibrary.ChangeTimeout(this);
         }
     }
 }

@@ -98,7 +98,6 @@ namespace AddOnSimulator_SepVer
 
             switch (path) //TODO 외부에서 주입하는 방식으로 변경 필요. 완전 모듈화
 			{
-				//case "/simulation/scanner":
 				case "/agos/scanner":
 				case "/sources":
 				case "/sources/1/trajectories":

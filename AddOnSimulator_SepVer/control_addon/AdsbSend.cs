@@ -1,21 +1,23 @@
-﻿using System;
+﻿using AddOnSimulator_SepVer.util;
+using System;
 using System.Diagnostics;
 using System.Net;
 using System.Net.Sockets;
 using System.Threading;
+using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace AddOnSimulator_SepVer
 {
     public class AdsbSend
     {
-        private static IPEndPoint serverEndPoint { get; set; }
-        private static UdpClient udpClient { get; set; }
+        private static UdpServer udpServer { get; set; } = new UdpServer();
+        public static Action<string> DataSendEvent;
 
         private const int ADSB_LENGTH = 50;  //146 - 휴대용..?   50 - 랙타임..?
-        private static IPAddress serverIP { get; set; }
         private static int readIndex { get; set; }
         public static int timeOut = 1000;
+        public static bool isConnected = false;
 
         public static void SetNetwork(string _serverIP, int _port)
         {
@@ -24,16 +26,22 @@ namespace AddOnSimulator_SepVer
             output_index = 0;
             selectPacketLength = 0;
 
-            if (serverIP == null || _serverIP != serverIP.ToString())
-            {
-                serverIP = IPAddress.Parse(_serverIP);
-
-                serverEndPoint = new IPEndPoint(serverIP, _port);
-                // UDP 클라이언트를 생성합니다.
-                udpClient = new UdpClient();
-            }
+            udpServer.OpenUDPServer(_serverIP, _port);
+            ShowLog("Open");
+            isConnected = true;
         }
 
+        public static void Disconnect()
+        {
+            isConnected = false;
+            udpServer.CloseUDPServer();
+            ShowLog("Closed");
+        }
+
+        private static void ShowLog(string message)
+        {
+            DataSendEvent?.Invoke($"ADSB - {message}");
+        }
 
         static byte[] cQueue = new byte[ADSB_LENGTH * 10];
 
@@ -41,14 +49,14 @@ namespace AddOnSimulator_SepVer
         static int output_index = 0;
         static int selectPacketLength = 0;
 
-        public static bool SendADSB(byte[] packets)
+        public static async Task<bool> SendADSB(byte[] packets)
         {
             var readIndexCount = 0;
             var result = false;
 
             Array.Clear(cQueue, input_index, cQueue.Length - input_index);
 
-            while (readIndexCount < packets.Length)
+            while (readIndexCount < packets.Length && isConnected)
             {
                 result = false;
                 cQueue[input_index++] = packets[readIndexCount++];
@@ -85,16 +93,39 @@ namespace AddOnSimulator_SepVer
                                 output_index = 0;
                         }
 
-                        
-                        udpClient.Send(dataToSend, dataToSend.Length, serverEndPoint);
+                        if (await udpServer.SendData(dataToSend))
+                            ShowLog("ADSB - Data 송신");
 
-                        Thread.Sleep(timeOut);
+                        /*if (timeOut < 15)
+                            SpinWaitMilliseconds(timeOut);
+
+                        else*/
+                        await Task.Delay(timeOut);
+
                         selectPacketLength = 2;     // 현재 읽어낸 다음 Packet의 STX size 저장
                     }
                 }
             }
             return false;
         }
+
+        public static void SpinWaitMilliseconds(int milliseconds)
+        {
+            if (milliseconds <= 0) return;
+
+            Stopwatch stopwatch = Stopwatch.StartNew();
+            long targetTicks = stopwatch.ElapsedTicks + (long)(milliseconds * Stopwatch.Frequency / 1000.0);
+
+            while (stopwatch.ElapsedTicks < targetTicks)
+            {
+                // CPU를 계속 사용하며 대기
+                // Thread.Yield() 또는 Thread.SpinWait()를 사용하여 다른 스레드에게 기회를 줄 수도 있지만,
+                // 매우 짧은 대기에는 효과가 제한적일 수 있습니다.
+            }
+        }
+
+        static Stopwatch stopwatch = new Stopwatch();
+
 
         private static bool IsStx(byte node1, byte node2)
         {

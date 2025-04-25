@@ -91,7 +91,7 @@ namespace AddOnSimulator_SepVer
 
         public void DisConnect()
         {
-            server.CloseTCPServer();
+            server?.CloseTCPServer();
             ShowLog("Closed");
         }
 
@@ -404,7 +404,7 @@ namespace AddOnSimulator_SepVer
         private async Task SendText(string text, string MessageID)
         {
             byte[] sendData = Encoding.UTF8.GetBytes(text);
-            server.SendData(sendData);
+            await server.SendData(sendData);
         }
 
         private string GetConstellation()

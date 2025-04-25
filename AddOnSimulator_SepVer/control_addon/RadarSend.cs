@@ -4,6 +4,7 @@ using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
 using System.Data;
+using System.Diagnostics;
 using System.IO;
 using System.IO.Ports;
 using System.Linq;
@@ -20,9 +21,6 @@ namespace AddOnSimulator_SepVer
     internal class RadarSend
     {
         private static WebSocketServer loopServer = new WebSocketServer();
-
-        public static Action RFCoreSendPacket;
-        public static Action LoopSendPacket;
 
         private static TcpServer server;
         private static HttpListener httpListener = null;
@@ -152,7 +150,7 @@ namespace AddOnSimulator_SepVer
             DataSendEvent?.Invoke($"{radar} - {message}");
         }
 
-        public static bool SendData(byte[] packets)
+        public static async Task<bool> SendData(byte[] packets)
         {
             var i = 0;
             var startIndex = 0;
@@ -184,8 +182,7 @@ namespace AddOnSimulator_SepVer
                             }
 
                             SendRadarData(sendData); 
-                            LoopSendPacket?.Invoke();
-                            Task.Delay(timeOut).Wait();
+                            await Task.Delay(timeOut);
                             startIndex = i + 1;
                             stxCount = 0;
                             etxCount = 0;
@@ -194,18 +191,22 @@ namespace AddOnSimulator_SepVer
                     }
                     else
                     {
+                        byte[] sendData;
                         if (i + 1000 >= packets.Length)
                         {
-                            RFCoreSendPacket?.Invoke();
-                            i = packets.Length - i;
+                            i = packets.Length -1;
                         }
                         else
+                        {
                             i += 1000;
-                        byte[] sendData = new byte[i - startIndex + 1];
+                        }
+                        sendData = new byte[i - startIndex + 1];
                         Buffer.BlockCopy(packets, startIndex, sendData, 0, sendData.Length);
 
                         SendRadarData(sendData);
-                        Task.Delay(timeOut).Wait();
+
+                        await Task.Delay(timeOut);
+
                         i++;
                         startIndex = i;
                         stxCount = 0;
@@ -225,26 +226,26 @@ namespace AddOnSimulator_SepVer
             return false;
         }
 
-        private static void SendSource()
+        private static async void SendSource()
         {
             var text = "{\r\n    \"sources\": [\r\n        {\r\n            \"id\": 1,\r\n            \"name\": \"Radar\",\r\n            \"state\": \"error\",\r\n            \"type\": \"radar\"\r\n        }]}";
-            WebSocketServer.SendMessageToAll_Path(text, "/sources");
+            await WebSocketServer.SendMessageToAll_Path(text, "/sources");
         }
 
-        private static void SendRadarData(byte[] packets)
+        private static async void SendRadarData(byte[] packets)
         {
-            var text = Encoding.UTF8.GetString(packets);
             if (isRFCore)
             {
                 if (server.IsConnectClient())
                 {
-                    server.SendData(packets);
+                    await server.SendData(packets);
                     ShowLog("RFCore", "Data 송신");
                 }
             }
             else
             {
-                WebSocketServer.SendMessageToAll_Path(text, "/sources/1/trajectories");
+                var text = Encoding.UTF8.GetString(packets);
+                await WebSocketServer.SendMessageToAll_Path(text, "/sources/1/trajectories");
                 ShowLog("Loop", "Data 송신");
             }
         }

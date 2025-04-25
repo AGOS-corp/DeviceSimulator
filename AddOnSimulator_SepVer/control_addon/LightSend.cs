@@ -35,7 +35,7 @@ namespace AddOnSimulator_SepVer
 
 		public void DisConnect()
         {
-            server.CloseTCPServer();
+            server?.CloseTCPServer();
             ShowLog("Closed");
         }
 
@@ -77,7 +77,7 @@ namespace AddOnSimulator_SepVer
 			sendData[6] = whiteLight;
 			sendData[7] = soundState;
 
-			server.SendData(sendData);
+			await server.SendData(sendData);
 
             ShowLog("상태 정보 전송");
 		}
@@ -91,7 +91,7 @@ namespace AddOnSimulator_SepVer
 			whiteLight = receiveData[6];
 			soundState = receiveData[7];
 
-            server.SendData(sendData);
+            await server.SendData(sendData);
 
             ShowLog("설정 완료");
 		}

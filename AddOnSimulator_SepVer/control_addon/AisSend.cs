@@ -11,6 +11,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using AddOnSimulator_SepVer.util;
+using System.Diagnostics;
 
 namespace AddOnSimulator_SepVer
 {
@@ -28,12 +29,13 @@ namespace AddOnSimulator_SepVer
 		private int sumCount = 0;
 		private int currentCount = 0;
 		private int fileLength = 0;
+		private bool runAis = false;
 
         public void SetNetwork(string _serverIP, string _port, int typeIndex)
         {
             var fileEntries = Directory.GetFiles(@"./AIS_Packets", "*.bin");
             fileLength = fileEntries.Length;
-
+			runAis = true;
             if (typeIndex == 0)
 			{
 				try
@@ -60,7 +62,8 @@ namespace AddOnSimulator_SepVer
 
 		public void DisConnect()
         {
-            server.CloseTCPServer();
+			runAis = false;
+            server?.CloseTCPServer();
             serialPort?.Dispose();
             ShowLog("Closed");
         }
@@ -71,14 +74,14 @@ namespace AddOnSimulator_SepVer
         }
 
 
-        public bool SendAIS(byte[] packets)
+        public async Task<bool> SendAIS(byte[] packets)
         {
 			var count = 0;
 			var read = 0;
 			var index = 0;
 			byte[] sendData = new byte[0];
             var rand = new Random();
-            while (count < packets.Length - 1)
+            while (count < packets.Length - 1 && runAis)
 			{
 				read = rnd.Next(25, 30);
 
@@ -115,9 +118,8 @@ namespace AddOnSimulator_SepVer
 
                 if (what == 0)
 				{
-                    if (server.IsConnectClient())
+                    if (await server.SendData(filteredBytes))
                     {
-                        server.SendData(filteredBytes);
                         DataSendEvent?.Invoke("AIS - Data 송신");
                     }
                 }
@@ -129,8 +131,9 @@ namespace AddOnSimulator_SepVer
                         DataSendEvent?.Invoke("AIS - Data 송신");
 					}
 				}
-				Task.Delay(timeOut).Wait();
-			}
+
+                await Task.Delay(timeOut);
+            }
             currentCount++;
 
 			if (currentCount >= fileLength)

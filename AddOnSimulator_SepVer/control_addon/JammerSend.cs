@@ -102,7 +102,7 @@ namespace AddOnSimulator_SepVer
 		public void DisConnect()
 		{
 			isConnect = false;
-            server.CloseTCPServer();
+            server?.CloseTCPServer();
             ShowLog("Closed");
         }
 
@@ -222,13 +222,13 @@ namespace AddOnSimulator_SepVer
 
 
             byte[] sendData = { 0x50, 0x04, 0x00, 0x25, 0x00, 0x37, 0x5A };
-			server.SendData(sendData);
+			await server.SendData(sendData);
         }
 
         private async Task KNSendAngle(byte[] receiveData)
 		{
             byte[] sendData = { 0x50, 0x08, 0x00, 0x24, 0x00, 0x34, 0x4C, 0xFF, 0xE2, 0xFF, 0x5A };
-            server.SendData(sendData);
+            await server.SendData(sendData);
 
             var inpan = BitConverter.ToInt16(receiveData, 6);
             var intilt = BitConverter.ToInt16(receiveData, 8);
@@ -318,7 +318,7 @@ namespace AddOnSimulator_SepVer
             sendData[index] = 0x5A;
 
 			//Task.Delay(10).Wait(); 
-			server.SendData(sendData);
+			await server.SendData(sendData);
 
             ShowLog($"상태 정보 전송");
 		}
@@ -375,7 +375,7 @@ namespace AddOnSimulator_SepVer
 			SetPacket_Temp(ref sendData, ref index);
 
             sendData[index] = 0x5A;
-			server.SendData(sendData);
+			await server.SendData(sendData);
 
             ShowLog($"상태 정보 전송");
 		}
@@ -419,7 +419,7 @@ namespace AddOnSimulator_SepVer
 
             byte[] sendData = { 0x50, 0x04, 0x00, 0x25, 0x00, 0x37, 0x5A };
 
-            server.SendData(sendData);
+            await server.SendData(sendData);
         }
 
 
@@ -454,7 +454,7 @@ namespace AddOnSimulator_SepVer
 
         byte[] statusPacket = new byte[38];
         int tempChangeCount = 0;
-        private void DYSendStatus(byte[] bytes)
+        private async void DYSendStatus(byte[] bytes)
         {
             var index = 0;
 
@@ -490,7 +490,7 @@ namespace AddOnSimulator_SepVer
             }
             statusPacket[statusPacket.Length - 1] = 0x03;   // etx
 
-            server.SendData(statusPacket);
+            await server.SendData(statusPacket);
 
 			if (bytes[4] == 0x23)
                 ShowLog($"상태 정보 전송");
@@ -506,7 +506,8 @@ namespace AddOnSimulator_SepVer
             statusPacket[index++] = 0xF0;
 
             // 현재 출력값 (2 Byte)
-            byte[] tmp = BitConverter.GetBytes(output);
+			short outputValue = (short)(onoff ? output : 0);
+            byte[] tmp = BitConverter.GetBytes(outputValue);
             Array.Reverse(tmp);
             Buffer.BlockCopy(tmp, 0, statusPacket, index, tmp.Length);
             index += tmp.Length;
@@ -515,7 +516,7 @@ namespace AddOnSimulator_SepVer
             index += 2;
 
             // 현재 온도 (1 Byte)
-            statusPacket[index++] = (byte)(onoff ? 45 : 0);
+            statusPacket[index++] = (byte)(onoff ? 25 : 0);
 
             // Lower Limit, Upper Limit, Temp Limit (2 * 3 Byte)
             index += 2;
@@ -523,6 +524,8 @@ namespace AddOnSimulator_SepVer
             index += 2;
 
             // 목표 출력 값 (2 Byte)
+            tmp = BitConverter.GetBytes(output);
+            Array.Reverse(tmp);
             Buffer.BlockCopy(tmp, 0, statusPacket, index, tmp.Length);
             index += tmp.Length;
 
@@ -579,7 +582,7 @@ namespace AddOnSimulator_SepVer
                     break;
             }
             responseSetting[3] = bytes[4];
-            server.SendData(responseSetting);
+            await server.SendData(responseSetting);
         }
 
         private async Task DYSetRadiation(byte[] bytes)
@@ -595,7 +598,7 @@ namespace AddOnSimulator_SepVer
             }
 
             responseSetting[3] = bytes[4];
-            server.SendData(responseSetting);
+            await server.SendData(responseSetting);
         }
 
 
@@ -635,7 +638,7 @@ namespace AddOnSimulator_SepVer
         {
             await semaphoreSlim.WaitAsync();
             agosPacket[2] = 0x75;
-			server.SendData(agosPacket);
+			await server.SendData(agosPacket);
             count++;
 
             if (count >= 100)
@@ -689,7 +692,7 @@ namespace AddOnSimulator_SepVer
 					0x7B, 0x00,	  // PCU input voltage
                     0x5A	// ETX
 				};
-			server.SendData(sendData);
+			await server.SendData(sendData);
 
             ShowLog($"AGOS Jammer BIT 응답");
         }
